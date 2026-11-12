@@ -1,0 +1,1 @@
+netmap:eth0@extmem:/dev/null,if_num=1,buf_size=2048

@@ -1,0 +1,10 @@
+project: savantenvs/netmap
+target: fuzz_nm_parse
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_nm_parse/testsuite
+cmds:
+  - cmd: /mayhem/fuzz_nm_parse
+    libfuzzer: true
+    timeout: 5
+    dictionary: /mayhem/mayhem/fuzz_nm_parse/fuzz_nm_parse.dict

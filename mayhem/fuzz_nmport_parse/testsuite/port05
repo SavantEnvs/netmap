@@ -1,0 +1,1 @@
+netmap:eth0@conf:tx_rings=3,rx_slots=64,host_rings=1

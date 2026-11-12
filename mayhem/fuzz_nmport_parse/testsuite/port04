@@ -1,0 +1,1 @@
+netmap:eth0@conf:rings=2,slots=1024

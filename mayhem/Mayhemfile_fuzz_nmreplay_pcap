@@ -1,0 +1,8 @@
+project: savantenvs/netmap
+target: fuzz_nmreplay_pcap
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/fuzz_nmreplay_pcap/testsuite
+cmds:
+  - cmd: /mayhem/fuzz_nmreplay_pcap @@
+    timeout: 5

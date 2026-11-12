@@ -1,0 +1,32 @@
+port netmap:eth0 -> name=eth0 mode=1 ringid=0 flags=0x0 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port netmap:eth0-3/x -> name=eth0 mode=4 ringid=3 flags=0x800 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port netmap:eth0* -> name=eth0 mode=3 ringid=0 flags=0x0 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port netmap:eth0^ -> name=eth0 mode=2 ringid=0 flags=0x0 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port netmap:eth0/R -> name=eth0 mode=1 ringid=0 flags=0x2000 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port vale0:p1 -> name=vale0:p1 mode=1 ringid=0 flags=0x0 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port vale0:p1{5 -> name=vale0:p1{5 mode=1 ringid=0 flags=0x0 memid=0 txr=0 rxr=0 txs=0 rxs=0
+port netmap:eth0@conf:rings=2,slots=1024 -> name=eth0 mode=1 ringid=0 flags=0x0 memid=0 txr=2 rxr=2 txs=1024 rxs=1024
+port netmap:eth0@conf:tx_rings=3,rx_slots=64 -> name=eth0 mode=1 ringid=0 flags=0x0 memid=0 txr=3 rxr=0 txs=0 rxs=64
+port netmap:eth0- -> error
+port netmap:eth0/q -> error
+nm_parse netmap:em0 -> name=em0 ringid=0 flags=0x1 arg2=0
+nm_parse netmap:em0-2/x -> name=em0 ringid=2 flags=0x804 arg2=0
+nm_parse netmap:em0^/xR@7 -> name=em0 ringid=0 flags=0x2802 arg2=7
+nm_parse vale0:p1 -> name=vale0:p1 ringid=0 flags=0x1 arg2=0
+nm_parse vale0:p1}3 -> name=vale0:p1 ringid=3 flags=0x6 arg2=0
+nm_parse netmap:em0@0 -> error 'invalid memid 0, must be >0'
+nm_parse netmap:em0*z -> error 'unexpected character: 'z''
+hash split=0 seed=0 fwd=c8ccc8cc rev=c8ccc8cc
+hash split=1 seed=0 fwd=c8ccc8cc rev=c8ccc8cc
+hash split=2 seed=0 fwd=d1d1d1d1 rev=d1d1d1d1
+pcap -> pkts=2 bytes=160 res=1000 swap=0 tx_time=3200000000
+delay 'const,100m' -> d0=100000000 d1=0 d2=0 f0=0 arglen=0
+delay '5u' -> d0=5000 d1=0 d2=0 f0=0 arglen=0
+delay 'uniform,1u,2m' -> d0=1000 d1=2000000 d2=1999000 f0=0 arglen=0
+delay 'uniform,2m,1u' -> error
+delay 'exp,5m,1m' -> d0=0 d1=0 d2=0 f0=0 arglen=4096 t0=1000000 t511=37000000
+bw 'const,10m' -> d0=10000000 d1=0 d2=0 f0=0 arglen=0 tt=1200000
+bw 'ether,10g' -> d0=10000000000 d1=0 d2=0 f0=0 arglen=0 tt=1219
+bw 'real,2' -> d0=0 d1=0 d2=0 f0=2 arglen=0 tt=3
+loss '0.25' -> d0=4194304 d1=0 d2=0 f0=0 arglen=0
+loss 'ber,1e-6' -> d0=16 d1=0 d2=0 f0=0 arglen=36800 t0=575525617664 t511=587311008060835
